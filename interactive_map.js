@@ -1,4 +1,4 @@
-d3.xml("most_recent_sale.svg").mimeType("image/svg+xml").get(function(error,xml) {
+d3.xml("sev.svg").mimeType("image/svg+xml").get(function(error,xml) {
 	if (error) throw error;
 	document.body.appendChild(xml.documentElement);
 
@@ -18,12 +18,31 @@ d3.xml("most_recent_sale.svg").mimeType("image/svg+xml").get(function(error,xml)
 
       // Specify where to put label of text
       svg.append("text").attrs({
-          id: "t" + "-" + i,  // Create an id for text so we can select it later for removing on mouseout
+          id: "t" + "-1-" + i,  // Create an id for text so we can select it later for removing on mouseout
           x: 20,
-          y: 375,
+          y: 425,
         })
-        .text(function() {return parcel.attr('address');  // Value of the text})
-        .attr('fill','gray')
+        .text(function() {return parcel.attr('address')})  // Value of the text})
+        .attr('fill','black')
+        .attr('font-family','arial');
+          
+      svg.append("text").attrs({
+          id: "t" + "-2-" + i,  // Create an id for text so we can select it later for removing on mouseout
+          x: 20,
+          y: 450,
+        })
+        .text(function() {return parcel.attr('owner')})  // Value of the text})
+        .attr('fill','black')
+        .attr('font-family','arial');
+          
+
+      svg.append("text").attrs({
+          id: "t" + "-3-" + i,  // Create an id for text so we can select it later for removing on mouseout
+          x: 20,
+          y: 475,
+        })
+        .text(function() {return '$' + parcel.attr('sev')})  // Value of the text})
+        .attr('fill','black')
         .attr('font-family','arial');
           }
 
@@ -34,7 +53,9 @@ d3.xml("most_recent_sale.svg").mimeType("image/svg+xml").get(function(error,xml)
     d3.select(this)
 	  	  .style('fill',color);
             // Select text by id and then remove
-            d3.select("#t" + "-" + i).remove();  // Remove text location
+            d3.select("#t" + "-1-" + i).remove();
+            d3.select("#t" + "-2-" + i).remove();
+            d3.select("#t" + "-3-" + i).remove();  // Remove text location
           }
 
 });
