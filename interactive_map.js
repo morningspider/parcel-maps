@@ -3,7 +3,23 @@ d3.xml("sev.svg").mimeType("image/svg+xml").get(function(error,xml) {
 	document.body.appendChild(xml.documentElement);
 
 	var svg = d3.select('svg');
-	
+
+  svg.append('rect').attrs({
+      x: 425,
+      y: 605,
+      width:325,
+      height:60,
+      rx:5,
+      ry:5,
+      fill:'GhostWhite',
+      opacity: 0.8 })
+  svg.append('image').attrs({
+    x: 390,
+    y: 600,
+    width: 400,
+    height: 66
+  })
+    .attr('xlink:href','colorbar.png');
 	polygons = d3.selectAll('polygon');
 
 	polygons.on('mouseover', handleMouseOver)
@@ -17,10 +33,10 @@ d3.xml("sev.svg").mimeType("image/svg+xml").get(function(error,xml) {
     }
   })
 	  function handleMouseOver(d, i) {  // Add interactivity
-      // Use D3 to select element, change color and size
 		  var parcel = d3.select(this);
       d3.select(this)
 	  	  .style('fill','GhostWhite');
+
       svg.append('rect').attrs({
         id: 'rect',
         x: 10,
@@ -29,9 +45,9 @@ d3.xml("sev.svg").mimeType("image/svg+xml").get(function(error,xml) {
         height:70,
         rx:5,
         ry:5,
-        fill:'GhostWhite',
+        fill:parcel.attr('c'),
         stroke: 'grey',
-        opacity:0.95
+        opacity:0.6
 
       })
       // Specify where to put label of text
@@ -41,7 +57,7 @@ d3.xml("sev.svg").mimeType("image/svg+xml").get(function(error,xml) {
           y: 440,
         })
         .text(function() {return parcel.attr('address')})  // Value of the text})
-        .attr('fill','DarkCyan')
+        .attr('fill','Black')
         .attr('font-family','arial')
         .attr('font-size','12px');
           
@@ -51,9 +67,9 @@ d3.xml("sev.svg").mimeType("image/svg+xml").get(function(error,xml) {
           y: 460,
         })
         .text(function() {return parcel.attr('owner')})  // Value of the text})
-        .attr('fill','DarkCyan')
+        .attr('fill','Black')
         .attr('font-family','arial')
-        .attr('font-size','12px');
+        .attr('font-size','12px');  
           
 
       svg.append("text").attrs({
@@ -62,7 +78,7 @@ d3.xml("sev.svg").mimeType("image/svg+xml").get(function(error,xml) {
           y: 480,
         })
         .text(function() {return '$' + Number(parcel.attr('sev')).toLocaleString()})  // Value of the text})
-        .attr('fill','DarkCyan')
+        .attr('fill','Black')
         .attr('font-family','arial')
         .attr('font-size','12px');
           }
